@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Users</h1>
+<button onclick="loadUsers()">Load Users</button>
+<ul id="list"></ul>
+
+<script>
+async function loadUsers() {
+  const res = await fetch("http://localhost:3000/users");
+  const users = await res.json();
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  users.forEach(u => {
+    const li = document.createElement("li");
+    li.textContent = u.name;
+    list.appendChild(li);
+  });
+}
+
+// Example POST request
+async function addUser(name) {
+  const res = await fetch("http://localhost:3000/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name })
+  });
+  const user = await res.json();
+  console.log("Added:", user);
+}
+
+// Example DELETE request
+async function deleteUser(id) {
+  const res = await fetch(`http://localhost:3000/users/${id}`, { method: "DELETE" });
+  const data = await res.json();
+  console.log(data);
+}
+</script>
+</body>
+</html>
