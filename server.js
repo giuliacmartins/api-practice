@@ -10,6 +10,10 @@ let users = [
   { id: 2, name: "Bob" }
 ];
 
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
+
 // GET all users
 app.get("/users", (req, res) => {
   res.json(users);
